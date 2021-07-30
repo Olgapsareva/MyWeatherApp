@@ -1,6 +1,8 @@
 package ru.geekbrains.myweatherapp.model
 
 interface Repository {
-    fun getWeatherFromServer(): Weather
-    fun getWeatherFromLocalStorage(): Weather
+    fun getWeather(): Weather
+    /*fun getWeatherFromServer(): Weather
+    fun getWeatherFromLocalStorageRus(): List<Weather>
+    fun getWeatherFromLocalStorageWorld(): List<Weather>*/
 }
