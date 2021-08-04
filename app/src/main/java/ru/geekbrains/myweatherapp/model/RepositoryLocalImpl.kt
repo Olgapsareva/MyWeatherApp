@@ -2,16 +2,11 @@ package ru.geekbrains.myweatherapp.model
 
 class RepositoryLocalImpl : Repository {
 
-    override fun getWeather(): Weather {
-        TODO("Not yet implemented")
-    }
+    override fun getWeather(): Weather = Weather()
 
-    fun getWeatherFromLocalStorageRus(): List<Weather> {
-        return getRussianCities()
-    }
+    fun getWeatherFromLocalStorageRus(): List<Weather> =  getRussianCities()
 
-    fun getWeatherFromLocalStorageWorld(): List<Weather> {
-        return getWorldCities()
-    }
+
+    fun getWeatherFromLocalStorageWorld(): List<Weather> = getWorldCities()
 
 }

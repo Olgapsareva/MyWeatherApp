@@ -8,47 +8,33 @@ import android.view.ViewGroup
 import ru.geekbrains.myweatherapp.R
 import ru.geekbrains.myweatherapp.model.Weather
 import ru.geekbrains.myweatherapp.databinding.DetailsFragmentBinding
-import ru.geekbrains.myweatherapp.viewmodel.MainViewModel
 
 class DetailsFragment : Fragment() {
 
-    private var _binding: DetailsFragmentBinding? = null
-
-    private val binding
-        get() = _binding
-
-
-    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DetailsFragmentBinding.inflate(inflater, container, false)
-        val view = _binding!!.root
+        binding = DetailsFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = arguments?.getParcelable<Weather>(BUNDLE_EXTRA)
-        if (weather != null) {
-            val city = weather.city
-            binding!!.cityName.text = city.cityName
-            binding!!.cityCoordinates.text = String.format(
-                getString(R.string.city_coordinates),
-                city.lat.toString(),
-                city.lon.toString()
-            )
-            binding?.temperatureValue?.text = weather.temperature.toString()
-            binding?.feelsLikeValue?.text = weather.feelsLike.toString()
-
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        val weather = arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
+            it.city.apply {
+                binding.cityName.text = this.cityName
+                binding.cityCoordinates.text = String.format(
+                    getString(R.string.city_coordinates),
+                    this.lat.toString(),
+                    this.lon.toString()
+                )}
+            binding.temperatureValue.text = it.temperature.toString()
+            binding.feelsLikeValue.text = it.feelsLike.toString()
+             }
     }
 
     companion object {
