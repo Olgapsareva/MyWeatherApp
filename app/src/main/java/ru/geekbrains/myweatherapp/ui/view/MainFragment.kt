@@ -24,11 +24,8 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
-        override fun onItemViewClick(weather: Weather) {
-            addFragment(weather)
-        }
-    })
+    private lateinit var adapter: MainFragmentAdapter
+
 
     private fun addFragment(weather: Weather) {
         activity?.supportFragmentManager?.let {
@@ -46,7 +43,10 @@ class MainFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-
+        adapter = MainFragmentAdapter(object : OnItemViewClickListener {
+            override fun onItemViewClick(weather: Weather) {
+                addFragment(weather)
+            } })
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
